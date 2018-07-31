@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.19">
+
+<!-- ********** -->
+<!-- Acoplado de miniaturas y barra de control -->
+<!-- id : controlBar_dockedThumbnails -->
+<!-- ********** -->
+
+<krpano controlBar_dockedThumbnailsbarbuilt="false" controlBar_dockedThumbnailsIsOpened="false" />
+
+<events name="controlBar_dockedThumbnailsbarevents" 
+	onxmlcomplete="controlBar_dockedThumbnailsbuildMenuBar();"
+
+
+	
+	keep="true"/>
+
+
+
+<action name="controlBar_dockedThumbnailsbuildMenuBar">
+	ifnot (controlBar_dockedThumbnailsbarbuilt, controlBar_dockedThumbnailsbuildMenu(); set(controlBar_dockedThumbnailsbarbuilt, true););
+</action>
+
+
+
+<action name="controlBar_dockedThumbnailsbuildMenu">
+	
+    set(controlBar_dockedThumbnailsbutton_pos, 0);
+
+
+      if (device.fullscreensupport,
+        set(layer[controlBar_dockedThumbnailsbtn_openfs].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_closefs].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_openfs_bg ].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_closefs_bg].x, get(controlBar_dockedThumbnailsbutton_pos));
+        inc(controlBar_dockedThumbnailsbutton_pos, 36);
+      );
+
+
+
+
+
+      if (device.desktop,
+        set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to_bg].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to].x, get(controlBar_dockedThumbnailsbutton_pos));
+        set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to_bg].x, get(controlBar_dockedThumbnailsbutton_pos));
+        inc(controlBar_dockedThumbnailsbutton_pos, 36);
+      );
+
+
+
+
+
+
+
+
+	
+	
+	
+</action>
+
+<events name="controlBar_dockedThumbnailsStartTourEvents" onTourStart="controlBar_dockedThumbnailsCallOnStartTour();" keep="true" />
+
+<action name="controlBar_dockedThumbnailsCallOnStartTour">
+	
+	controlBar_dockedThumbnailsshowMenuControls();
+</action>
+
+
+
+
+    <layer name="controlBar_dockedThumbnails_bg"
+           keep="true"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/footer.png"
+           zorder="1"
+           width="100%"
+           align="bottomleft"
+           x="0"
+           visible="false" />
+
+    <style name="controlBar_dockedThumbnails_btn_style_bg"
+            keep="true"
+            parent="controlBar_dockedThumbnails_bg"
+            crop="0|0|48|48"
+            url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_bg.png"
+            align="bottomright"
+            height="36"
+            width="36"
+            alpha="0.3"
+            y="12"
+            zorder="0"
+            />
+    <style name="controlBar_dockedThumbnails_btn_style_bg_off"
+            keep="true"
+            parent="controlBar_dockedThumbnails_bg"
+            crop="0|0|48|48"
+            url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_bg.png"
+            align="bottomright"
+            height="36"
+            width="36"
+            alpha="0.3"
+            y="12"
+            zorder="0"
+            />
+
+    <style name="controlBar_dockedThumbnails_btn_style_on_bg"
+           keep="true"
+           parent="controlBar_dockedThumbnails_bg"
+           crop="0|48|48|48"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_bg.png"
+           align="bottomright"
+           height="36"
+           width="36"
+           alpha="0.3"
+           y="12"
+           zorder="0"
+           />
+    <style name="controlBar_dockedThumbnails_btn_style_on_bg_off"
+           keep="true"
+           parent="controlBar_dockedThumbnails_bg"
+           crop="0|0|48|48"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_bg.png"
+           align="bottomright"
+           height="36"
+           width="36"
+           alpha="0.3"
+           y="12"
+           zorder="0"
+           />
+
+    <style name="controlBar_dockedThumbnails_btn_down_style"
+           keep="true"
+           parent="controlBar_dockedThumbnails_bg"
+                 crop="0| 0|48|48"
+           onovercrop="0|48|48|48"
+           ondowncrop="0|96|48|48"
+           align="bottomright"
+           height="36"
+           width="36"
+           x="0" y="12"
+           zorder="1"
+           onhover="showTooltip('plugin',controlBar_dockedThumbnailsmenuTooltipStyle);"
+           onover="controlBar_dockedThumbnailsctrl_btn_onoveraction"
+           onout="controlBar_dockedThumbnailsctrl_btn_onoutaction"
+           />
+
+    <style name="controlBar_dockedThumbnails_btn_style"
+           keep="true"
+           parent="controlBar_dockedThumbnails_bg"
+                 crop="0| 0|48|48"
+           onovercrop="0|48|48|48"
+           ondowncrop="0|96|48|48"
+           align="bottomright"
+           height="36"
+           width="36"
+           x="0" y="12"
+           zorder="1"
+           onhover="showTooltip('plugin',controlBar_dockedThumbnailsmenuTooltipStyle);"
+           onover="controlBar_dockedThumbnailsctrl_btn_onoveraction"
+           ondown="controlBar_dockedThumbnailsctrl_btn_ondownaction"
+           onout="controlBar_dockedThumbnailsctrl_btn_onoutaction"
+           />
+    <style name="controlBar_dockedThumbnails_btn_style_off"
+           keep="true"
+           parent="controlBar_dockedThumbnails_bg"
+           align="bottomright"
+           height="36"
+           width="36"
+           x="0" y="12"
+           zorder="1"
+           onhover="showTooltip('plugin',controlBar_dockedThumbnailsmenuTooltipStyle);"
+           onout="hideTooltip();"
+           />
+
+  <action name="controlBar_dockedThumbnailsctrl_btn_onoveraction">
+    txtadd(btn_bg_name, get(name), "_bg");
+    set(layer[get(btn_bg_name)].crop, "0|48|48|48");
+  </action>
+
+  <action name="controlBar_dockedThumbnailsctrl_btn_ondownaction">
+    txtadd(btn_bg_name, get(name), "_bg");
+    set(layer[get(btn_bg_name)].crop, "0|96|48|48");
+  </action>
+
+  <action name="controlBar_dockedThumbnailsctrl_btn_onoutaction">
+    txtadd(btn_bg_name, get(name), "_bg");
+    set(layer[get(btn_bg_name)].crop, "0|0|48|48");
+    hideTooltip();
+  </action>
+
+    <style name="controlBar_dockedThumbnails_btn_style_on"
+            keep="true"
+            parent="controlBar_dockedThumbnails_bg"
+                  crop="0|48|48|48"
+            onovercrop="0|48|48|48"
+            ondowncrop="0|96|48|48"
+            align="bottomright"
+            height="36"
+            width="36"
+            y="12"
+            zorder="1"
+            onhover="showTooltip('plugin',controlBar_dockedThumbnailsmenuTooltipStyle);" 
+            onout="hideTooltip();"
+            />
+    <style name="controlBar_dockedThumbnails_btn_style_on_off"
+            keep="true"
+            parent="controlBar_dockedThumbnails_bg"
+            align="bottomright"
+            height="36"
+            width="36"
+            y="12"
+            zorder="1"
+            onhover="showTooltip('plugin',controlBar_dockedThumbnailsmenuTooltipStyle);" 
+            onout="hideTooltip();"
+            />
+
+
+
+	<events name="controlBar_dockedThumbnailscontrolmodechangedevent" oncontrolmodechanged="controlBar_dockedThumbnailsupdateControlModeButtons();" keep="true"/>
+	<action name="controlBar_dockedThumbnailsHideControlModeButtons">
+		set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to].visible, false);
+		set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to].visible, false);
+		set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to_bg].visible, false);
+		set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to_bg].visible, false);
+	</action>
+	<action name="controlBar_dockedThumbnailsShowControlModeButtons">
+		if (tour_controlmodemousetype == "moveto",
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to].visible, true);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to].visible, false);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to_bg].visible, true);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to_bg].visible, false);
+		,
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to].visible, true);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to].visible, false);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_move_to_bg].visible, true);
+			set(layer[controlBar_dockedThumbnailsbtn_ctrlmode_drag_to_bg].visible, false);
+		);
+	</action>
+	<action name="controlBar_dockedThumbnailsupdateControlModeButtons">
+	if (device.desktop,
+		if (controlBar_dockedThumbnailsIsOpened,
+			controlBar_dockedThumbnailsShowControlModeButtons();
+		,
+			controlBar_dockedThumbnailsHideControlModeButtons();
+		);
+	,
+		controlBar_dockedThumbnailsHideControlModeButtons();
+	);
+	</action>
+	
+    <layer name="controlBar_dockedThumbnailsbtn_ctrlmode_move_to_bg" style="controlBar_dockedThumbnails_btn_style_bg" visible="false" devices="desktop" />
+    <layer name="controlBar_dockedThumbnailsbtn_ctrlmode_move_to"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_move_to.png"
+           style="controlBar_dockedThumbnails_btn_style"
+           tooltip="controlBar_dockedThumbnailsctrlmodeMoveTip"
+           onclick="setControlModeMoveTo();
+"
+           visible="false"
+           devices="desktop"
+           />
+    <layer name="controlBar_dockedThumbnailsbtn_ctrlmode_drag_to_bg" style="controlBar_dockedThumbnails_btn_style_bg" visible="false" devices="desktop" />
+    <layer name="controlBar_dockedThumbnailsbtn_ctrlmode_drag_to"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_drag_to.png"
+           style="controlBar_dockedThumbnails_btn_style"
+           tooltip="controlBar_dockedThumbnailsctrlmodeDragTip"
+           onclick="setControlModeDragTo();
+"
+           visible="false"
+           devices="desktop"
+           />
+
+
+
+
+
+
+
+
+
+    <layer name="controlBar_dockedThumbnailsbtn_openfs_bg" style="controlBar_dockedThumbnails_btn_style_bg" visible="false" devices="fullscreensupport" />
+    <layer name="controlBar_dockedThumbnailsbtn_openfs"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_enter_fs.png"
+           onclick="enterFullscreen();
+"
+           style="controlBar_dockedThumbnails_btn_style"
+           visible="false"
+           tooltip="controlBar_dockedThumbnailsopenFsTip"
+           devices="fullscreensupport"
+           />
+    <layer name="controlBar_dockedThumbnailsbtn_closefs_bg" style="controlBar_dockedThumbnails_btn_style_on_bg" visible="false" devices="fullscreensupport" />
+    <layer name="controlBar_dockedThumbnailsbtn_closefs"
+           url="%FIRSTXML%/graphics/dockedthumbscontrolbar/btn_close_fs.png"
+           onclick="exitFullscreen();
+"
+           style="controlBar_dockedThumbnails_btn_style_on"
+           visible="false"
+           tooltip="controlBar_dockedThumbnailscloseFsTip"
+           devices="fullscreensupport"
+           />
+
+
+
+
+
+
+<action name="controlBar_dockedThumbnailshideMenuControls">
+	set(controlBar_dockedThumbnailsIsOpened, false);
+	set(layer[controlBar_dockedThumbnails_bg].visible, false);
+
+
+		controlBar_dockedThumbnailsupdateControlModeButtons();
+		controlBar_dockedThumbnailsupdateFullscreenButtons();
+</action>
+<action name="controlBar_dockedThumbnailsshowMenuControls">
+	set(controlBar_dockedThumbnailsIsOpened, true);
+      controlBar_dockedThumbnailsupdateFullscreenButtons();
+
+
+      controlBar_dockedThumbnailsupdateControlModeButtons();
+      set(layer[controlBar_dockedThumbnails_bg].visible, true);
+	
+	
+</action>
+
+
+
+	<events name="controlBar_dockedThumbnailsmenufullscreenchangeevent"
+		onenterfullscreen="controlBar_dockedThumbnailsupdateFullscreenButtons();"
+		onexitfullscreen="controlBar_dockedThumbnailsupdateFullscreenButtons();"
+		keep="true"/>
+	<action name="controlBar_dockedThumbnailsHideFullscreenButtons">
+		set(layer[controlBar_dockedThumbnailsbtn_openfs].visible , false);
+		set(layer[controlBar_dockedThumbnailsbtn_closefs].visible, false);
+		set(layer[controlBar_dockedThumbnailsbtn_openfs_bg].visible, false);
+		set(layer[controlBar_dockedThumbnailsbtn_closefs_bg].visible, false);
+	</action>
+	<action name="controlBar_dockedThumbnailsShowFullscreenButtons">
+		if (device.fullscreensupport,
+			if(tour_fullscreen,
+				set(layer[controlBar_dockedThumbnailsbtn_openfs].visible , false);
+				set(layer[controlBar_dockedThumbnailsbtn_closefs].visible, true);
+				set(layer[controlBar_dockedThumbnailsbtn_openfs_bg].visible, false);
+				set(layer[controlBar_dockedThumbnailsbtn_closefs_bg].visible, true);
+			,
+				set(layer[controlBar_dockedThumbnailsbtn_openfs].visible ,true);
+				set(layer[controlBar_dockedThumbnailsbtn_closefs].visible,false);
+				set(layer[controlBar_dockedThumbnailsbtn_openfs_bg].visible, true);
+				set(layer[controlBar_dockedThumbnailsbtn_closefs_bg].visible, false);
+			);
+		,
+			controlBar_dockedThumbnailsHideFullscreenButtons();
+		);
+	</action>
+	<action name="controlBar_dockedThumbnailsupdateFullscreenButtons">
+		if (controlBar_dockedThumbnailsIsOpened,
+			controlBar_dockedThumbnailsShowFullscreenButtons();
+		,
+			controlBar_dockedThumbnailsHideFullscreenButtons();
+		);
+	</action>
+
+
+
+	<layer name="controlBar_dockedThumbnailsmenuTooltipStyle"
+	keep="true"
+	enabled="false"
+	capture="false"
+	url="%FIRSTXML%/graphics/textfield.swf"
+	align="center"
+	background="true"
+	backgroundcolor="0x92d26a"
+	backgroundalpha="0.80000000000000004"
+	border="false"
+	css="color:#f29320;font-family:Times New Roman;font-weight:bold;font-size:14px;text-align:left;"
+	height="20"
+	autoheight="true"
+	autowidth="auto"
+	edge="bottom"
+	selectable="false"
+	zorder="0"
+	padding="2"
+	xoffset="0"
+	yoffset="0"
+	visible="false"
+	html=""
+	/>
+
+
+  <!-- Load Next Group -->
+  <action name="loadNextGroup">
+    if (scene[get(xml.scene)].group !== null,
+      copy(currentgroup, scene[get(xml.scene)].group);
+
+      if (%1 != findgroup, set(groupprevnexti,0));
+      copy(groupnamei, panoramagroup[get(groupprevnexti)].name);
+      inc(groupprevnexti);
+      if (groupnamei == currentgroup,
+        if (groupprevnexti LT panoramagroup.count,
+          mainloadscene(get(panoramagroup[get(groupprevnexti)].mainscene));
+         ,
+          mainloadscene(get(panoramagroup[0].mainscene));
+        );
+       ,
+        if(groupprevnexti LT panoramagroup.count, loadNextGroup(findgroup));
+      );
+     ,
+      loadNextScene();
+    );
+  </action>
+  <!-- Load Previous Group -->
+  <action name="loadPreviousGroup">
+    if (scene[get(xml.scene)].group !== null,
+      copy(currentgroup, scene[get(xml.scene)].group);
+
+      if (%1 != findgroup, sub(groupprevnexti, panoramagroup.count, 1));
+      copy(groupnamei, panoramagroup[get(groupprevnexti)].name);
+
+      dec(groupprevnexti);
+      if (groupnamei == currentgroup,
+        if (groupprevnexti GE 0,
+          mainloadscene(get(panoramagroup[get(groupprevnexti)].mainscene));
+         ,
+          sub(lastig, panoramagroup.count, 1);
+          mainloadscene(get(panoramagroup[get(lastig)].mainscene));
+        );
+       ,
+        if(groupprevnexti GE 0, loadPreviousGroup(findgroup));
+      );
+     ,
+      loadPreviousScene();
+    );
+  </action>
+
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+
+</krpano>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.19">
+
+  <!-- Load Next Group -->
+  <action name="loadNextGroup">
+    if (scene[get(xml.scene)].group !== null,
+      copy(currentgroup, scene[get(xml.scene)].group);
+
+      if (%1 != findgroup, set(groupprevnexti,0));
+      copy(groupnamei, panoramagroup[get(groupprevnexti)].name);
+      inc(groupprevnexti);
+      if (groupnamei == currentgroup,
+        if (groupprevnexti LT panoramagroup.count,
+          mainloadscene(get(panoramagroup[get(groupprevnexti)].mainscene));
+         ,
+          mainloadscene(get(panoramagroup[0].mainscene));
+        );
+       ,
+        if(groupprevnexti LT panoramagroup.count, loadNextGroup(findgroup));
+      );
+     ,
+      loadNextScene();
+    );
+  </action>
+  <!-- Load Previous Group -->
+  <action name="loadPreviousGroup">
+    if (scene[get(xml.scene)].group !== null,
+      copy(currentgroup, scene[get(xml.scene)].group);
+
+      if (%1 != findgroup, sub(groupprevnexti, panoramagroup.count, 1));
+      copy(groupnamei, panoramagroup[get(groupprevnexti)].name);
+
+      dec(groupprevnexti);
+      if (groupnamei == currentgroup,
+        if (groupprevnexti GE 0,
+          mainloadscene(get(panoramagroup[get(groupprevnexti)].mainscene));
+         ,
+          sub(lastig, panoramagroup.count, 1);
+          mainloadscene(get(panoramagroup[get(lastig)].mainscene));
+        );
+       ,
+        if(groupprevnexti GE 0, loadPreviousGroup(findgroup));
+      );
+     ,
+      loadPreviousScene();
+    );
+  </action>
+
+  <!-- Fullscreen Management -->
+  <action name="exitFullScreen" devices="fullscreensupport">set(tour_fullscreen,false);set(fullscreen,false);</action>
+  <action name="enterFullScreen" devices="fullscreensupport">set(tour_fullscreen,true);set(fullscreen,true);</action>
+  <action name="switchFullScreen">if(tour_fullscreen,exitFullScreen();,enterFullScreen(););</action>
+
+  
+  <events name="krpanoExitFullscreenEvent"
+    onexitfullscreen="if(tour_fullscreen,exitFullScreenChangeEvent(););"
+    keep="true" />
+
+  <action name="exitFullScreenChangeEvent" devices="fullscreensupport">set(tour_fullscreen,false);events.dispatch(onexitfullscreen);</action>
+
+</krpano>
